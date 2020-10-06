@@ -12,7 +12,3 @@ class GroupAdmin(admin.DocumentAdmin):
 class UserAdmin(admin.DocumentAdmin):
      list_display = ['first_name', 'last_name']
      search_fields = ['first_name', 'last_name']
-
-# @admin.register(Customer)
-# class CustomerAdmin(admin.DocumentAdmin):
-#     pass
