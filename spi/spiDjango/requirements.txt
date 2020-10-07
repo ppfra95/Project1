@@ -4,7 +4,6 @@ six
 pymongo[srv]
 djangorestframework
 django-rest-framework-mongoengine
-mysqlclient
 Pillow
 django-cors-headers
 psycopg2

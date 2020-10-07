@@ -25,9 +25,10 @@ export class LoginUserComponent implements OnInit {
     this.userService.loginUser(this.user)
       .subscribe(
         data => {
-          console.log(data.token);
-          localStorage.setItem("key", "Token "+JSON.stringify(data.token));
-          this.router.navigate(['user/profile/'+JSON.stringify(data.id)]);
+          console.log(data);
+          localStorage.setItem("key", "Token "+data.token);
+          // localStorage.setItem("key", data.token);
+          this.router.navigate(['user/profile/'+data.id], { state: JSON.stringify(data) }, );
         },
         error => console.log(error));
     this.user = new User();
