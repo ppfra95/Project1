@@ -8,10 +8,6 @@ import { Observable } from 'rxjs';
 export class UserService {
 
   private baseUrl = 'http://localhost:8000/api/';
-  // private const httpOptions = {
-  // headers: new HttpHeaders({
-  //   'Authorization': `Bearer eyJhbGciOiJ...`
-  // })
 
   constructor(private http: HttpClient) { }
 
@@ -23,13 +19,13 @@ export class UserService {
     return this.http.post(`${this.baseUrl}login/`, user);
   }
 
-  getUser(id:number): Observable<any> {
+  getUser(id:string): Observable<any> {
     return this.http.get(`${this.baseUrl}user/${id}/edit/`);
   }
 
- //  updateCustomer(id: number, value: any): Observable<Object> {
- //   return this.http.put(`${this.baseUrl}/${id}`, value);
- // }
+  updateUser(id: string, value: any): Observable<Object> {
+   return this.http.put(`${this.baseUrl}user/${id}/edit/`, value);
+ }
  //
  // deleteCustomer(id: number): Observable<any> {
  //   return this.http.delete(`${this.baseUrl}/${id}`);

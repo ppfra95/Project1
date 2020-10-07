@@ -44,13 +44,18 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'rest_framework.authtoken',
-    'corsheaders',
-    'django_mongoengine',
     'rest_framework_mongoengine',
 
+    'django_rest_passwordreset',
+
+    'corsheaders',
+    'django_mongoengine',
+    
     'core',
     'user',
 ]
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -66,9 +71,12 @@ MIDDLEWARE = [
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:4200",
-    "http://127.0.0.1:4200",    
+    "http://127.0.0.1:4200",
+    "https://web.postman.co"
 ]
 
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_ALL_ORIGINS=True
 
 ROOT_URLCONF = 'spi.urls'
 
@@ -117,6 +125,7 @@ AUTH_USER_MODEL = 'mongo_auth.MongoUser'
 AUTHENTICATION_BACKENDS = (
     'django_mongoengine.mongo_auth.backends.MongoEngineBackend',
 )
+
 SESSION_ENGINE = 'django_mongoengine.sessions'
 SESSION_SERIALIZER = 'django_mongoengine.sessions.BSONSerializer'
 
@@ -177,11 +186,26 @@ STATICFILES_DIRS = [
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+        # 'rest_framework.permissions.IsAdminUser',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'lib.authentication.CustomTokenAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ),
+}
+
+
 EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST='smtp.gmail.com'
 EMAIL_USE_TLS= True
 EMAIL_PORT=587
 EMAIL_HOST_USER="bltest.com@gmail.com"
 EMAIL_HOST_PASSWORD="Joselo123"
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 SERVER_EMAIL='ppfra95@gmail.com'

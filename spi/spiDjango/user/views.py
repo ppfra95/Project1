@@ -1,14 +1,14 @@
 from rest_framework import generics
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import TokenAuthentication
 from rest_framework.settings import api_settings
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.contrib.auth import get_user_model
-from django_mongoengine.mongo_auth.models import User as MongoUser, AbstractUser
+from django_mongoengine.mongo_auth.models import User as MongoUser
 
 from .serializers import *
-from core.forms import *
 from core.models import *
 
 User = get_user_model()
@@ -40,7 +40,7 @@ class ListUsers(generics.ListAPIView):
 
 
 class CreateUser(generics.CreateAPIView):
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     serializer_class = UserCreateSerializer
 
 

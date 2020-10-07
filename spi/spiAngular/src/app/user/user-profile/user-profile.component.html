@@ -1,1 +1,31 @@
-<p>user-profile works!</p>
+<div class="container-sm mt-5">
+  <div class="row justify-content-center">
+    <div class="col-5">
+      <form (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="inputFirstName">User Name</label>
+          <div class="text-muted overflow-hidden bg-light p-2 rounded border border-info">
+            {{user.username}}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputFirstName">First Name</label>
+          <input type="text" class="form-control" id="inputUserName" placeholder="{{user.first_name}}" required [(ngModel)]="user.first_name" name="inputUserName">
+        </div>
+        <div class="form-group">
+          <label for="inputLastName">Last Name</label>
+          <input type="text" class="form-control" id="inputUserName" placeholder="{{user.last_name}}" required [(ngModel)]="user.last_name" name="inputUserName">
+        </div>
+        <div class="form-group">
+          <label for="inputEmail">Email address</label>
+          <div class="text-muted overflow-hidden bg-light p-2 rounded border border-info">
+            {{user.email}}
+          </div>
+        </div>
+        <div class="text-right">
+          <button type="submit" class="btn btn-success btn-sm mx-3">Edit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

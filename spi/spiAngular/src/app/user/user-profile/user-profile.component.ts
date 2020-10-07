@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import {Router} from "@angular/router";
+import {Router, ActivatedRoute} from "@angular/router";
 
 import { User } from '../user.model';
 import { UserService } from '../user.service';
@@ -13,41 +13,34 @@ import { UserService } from '../user.service';
 export class UserProfileComponent implements OnInit {
   user: User = new User();
 
-  constructor(private userService: UserService, private router: Router) {
-  console.log(this.router.getCurrentNavigation().extras.state); // should log out 'bar'
-  this.user=JSON.parse(this.router.getCurrentNavigation().extras.state);
-}
+  constructor(private userService: UserService, private route: ActivatedRoute,
+    private router: Router) { }
+
   ngOnInit(): void {
     this.reloadData();
   }
 
   reloadData() {
-    // this.user =
-    console.log("aqui3");
-    this.userService.getUser(this.user.id)
+    this.userService.getUser(String(this.route.snapshot.paramMap.get('id')))
     .subscribe(
-        data => {
+        (data: any) => {
           console.log(data);
-          // this.listComponent.reloadData();
+          this.user = data;
         },
         error => console.log(error));
   }
 
-}
+  save() {
+    this.userService.updateUser(String(this.route.snapshot.paramMap.get('id')), this.user)
+      .subscribe(
+        data => {
+          console.log(data);
+        },
+        error => console.log(error));
+  }
 
-  // post(){
-  //   // let user = {key:''}:
-  //   this.userService.loginUser(this.user)
-  //     .subscribe(
-  //       data => {
-  //         console.log(data.token);
-  //         localStorage.setItem("key", "Token "+data.token);
-  //         this.router.navigate(['user/profile/'+data.id], { state: JSON.stringify(data) }, );
-  //       },
-  //       error => console.log(error));
-  //   this.user = new User();
-  // }
-  //
-  // onSubmit() {
-  //   this.post();
-  // }
+  onSubmit() {
+    this.save();
+  }
+
+}

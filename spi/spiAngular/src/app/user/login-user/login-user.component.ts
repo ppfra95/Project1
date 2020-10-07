@@ -10,10 +10,6 @@ import {Router} from "@angular/router";
 })
 export class LoginUserComponent implements OnInit {
   user: User = new User();
-  // data = {'token': "",
-  //         'id': "",
-  //         'username': "",
-  //         'email': ""};
 
   constructor(private userService: UserService, private router: Router) { }
 
@@ -21,14 +17,11 @@ export class LoginUserComponent implements OnInit {
   }
 
   post(){
-    // let user = {key:''}:
     this.userService.loginUser(this.user)
       .subscribe(
-        data => {
-          console.log(data);
+        (data: any) => {
           localStorage.setItem("key", "Token "+data.token);
-          // localStorage.setItem("key", data.token);
-          this.router.navigate(['user/profile/'+data.id], { state: JSON.stringify(data) }, );
+          this.router.navigate(['user/profile/', data.id], );
         },
         error => console.log(error));
     this.user = new User();
