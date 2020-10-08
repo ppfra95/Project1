@@ -19,7 +19,7 @@ class CustomTokenAuthentication(TokenAuthentication):
     def get_model(self):
         if self.model is not None:
             return self.model
-        from core.models import Token
+        from .models import Token
         return Token
 
     def authenticate_credentials(self, key):

@@ -1,37 +1,42 @@
+from django.utils.translation import ugettext_lazy as _
+from django.contrib.auth.password_validation import validate_password
+
 from rest_framework import serializers
 from rest_framework_mongoengine import serializers as me_serializers
-from django.contrib.auth.password_validation import validate_password
 from django_mongoengine.mongo_auth.models import User
-from authentication.models import Token
 
-# from core.models import *
+__all__ = [
+    'EmailSerializer',
+    'PasswordTokenSerializer',
+    'TokenSerializer',
+]
 
 
-__all__ = ['UserListSerializer', 'UserCreateSerializer']
-
-
-class UserListSerializer(me_serializers.DocumentSerializer):
+class EmailSerializer(me_serializers.DocumentSerializer):
+    email = serializers.EmailField()
 
     class Meta:
         model = User
-        fields = ('id', 'username', 'email', 'first_name', 'last_name')
+        fields = ('email',)
 
 
-class UserCreateSerializer(me_serializers.DocumentSerializer):
-
+class PasswordTokenSerializer(me_serializers.DocumentSerializer):
     password = serializers.CharField(
+        label=_("Password"),
         style={'input_type': 'password'},
         trim_whitespace=False
     )
 
     password2 = serializers.CharField(
+        label=_("Repeat password"),
         style={'input_type': 'password'},
         trim_whitespace=False
     )
+    token = serializers.CharField()
 
     class Meta:
         model = User
-        fields = ('username','email', 'password','password2')
+        fields = ('password', 'password2', 'token')
 
     def create(self, validated_data):
         """Create a new user with encrypted password and return it"""
@@ -56,3 +61,11 @@ class UserCreateSerializer(me_serializers.DocumentSerializer):
 
         validate_password(password)
         return attrs
+
+
+class TokenSerializer(me_serializers.DocumentSerializer):
+    token = serializers.CharField()
+
+    class Meta:
+        model = User
+        fields = ('token',)

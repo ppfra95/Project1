@@ -7,7 +7,7 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib.auth import get_user_model
 
 # from db_conns import MongoEngineConn
-from django_mongoengine.mongo_auth.models import User as MongoUser, make_password
+from django_mongoengine.mongo_auth.models import User as MongoUser
 from mongoengine import document, fields, CASCADE, signals
 
 from .tokens import get_token_generator
@@ -69,10 +69,6 @@ class ResetPasswordToken(document.Document):
         """ generates a pseudo random code using os.urandom and binascii.hexlify """
         return TOKEN_GENERATOR_CLASS.generate_token()
 
-    # id = models.AutoField(
-    #     primary_key=True
-    # )
-
     user = fields.ReferenceField(
         MongoUser,
         related_name='password_reset_tokens',
@@ -88,7 +84,6 @@ class ResetPasswordToken(document.Document):
     key = fields.StringField(
         verbose_name=_("Key"),
         max_length=64,
-        # db_index=True,
         unique=True
     )
 
@@ -141,19 +136,3 @@ def clear_expired(expiry_time):
     :param expiry_time: Token expiration time
     """
     ResetPasswordToken.objects.filter(created_at__lte=expiry_time).delete()
-
-# def eligible_for_reset(self):
-#     if not self.is_active:
-#         # if the user is active we dont bother checking
-#         return False
-#
-#     if getattr(settings, 'DJANGO_REST_MULTITOKENAUTH_REQUIRE_USABLE_PASSWORD', True):
-#         # if we require a usable password then return the result of has_usable_password()
-#         return self.has_usable_password()
-#     else:
-#         # otherwise return True because we dont care about the result of has_usable_password()
-#         return True
-#
-# # add eligible_for_reset to the user class
-# UserModel = MongoUser
-# UserModel.add_to_class("eligible_for_reset", eligible_for_reset)

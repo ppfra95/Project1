@@ -11,5 +11,5 @@ export class User {
   cell_Phone:number;
   last_login:string;
   date_joined:string;
-  token:number;
+  token:string;
 }

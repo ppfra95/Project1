@@ -21,5 +21,5 @@ urlpatterns = [
     # path('admin/', admin.site.urls),
     path('admin/', mongo_admin.site.urls),
     path('api/', include('user.urls')),
-    path('api/password_reset/', include('lib.authentication.urls', namespace='password_reset')),
+    path('api/password_reset/', include('authentication.urls', namespace='password_reset')),
 ]

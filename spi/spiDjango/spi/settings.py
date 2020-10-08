@@ -46,8 +46,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'rest_framework_mongoengine',
 
-    'django_rest_passwordreset',
-    'lib',
+    'authentication',
 
     'corsheaders',
     'django_mongoengine',
@@ -193,7 +192,7 @@ REST_FRAMEWORK = {
         # 'rest_framework.permissions.IsAdminUser',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'lib.authentication.authentication.CustomTokenAuthentication',
+        'authentication.tokens.CustomTokenAuthentication',
         'rest_framework.authentication.TokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
@@ -202,11 +201,13 @@ REST_FRAMEWORK = {
 
 
 EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_HOST='smtp.gmail.com'
 EMAIL_USE_TLS= True
 EMAIL_PORT=587
 EMAIL_HOST_USER="bltest.com@gmail.com"
 EMAIL_HOST_PASSWORD="Joselo123"
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 SERVER_EMAIL='ppfra95@gmail.com'
+
+HTTP_IP_ADDRESS_HEADER = "http://127.0.0.1:4200/user"

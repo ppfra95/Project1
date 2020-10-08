@@ -25,10 +25,14 @@ export class UserService {
 
   updateUser(id: string, value: any): Observable<Object> {
    return this.http.put(`${this.baseUrl}user/${id}/edit/`, value);
- }
- //
- // deleteCustomer(id: number): Observable<any> {
- //   return this.http.delete(`${this.baseUrl}/${id}`);
- // }
+  }
+
+  getTokenRecoveyPassword(user: Object): Observable<any> {
+   return this.http.post(`${this.baseUrl}password_reset/`, user);
+  }
+
+  resetPassword(user: Object): Observable<any> {
+   return this.http.delete(`${this.baseUrl}password_reset/confirm/`,user);
+  }
 
 }
