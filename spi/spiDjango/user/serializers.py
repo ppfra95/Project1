@@ -2,7 +2,9 @@ from rest_framework import serializers
 from rest_framework_mongoengine import serializers as me_serializers
 from django.contrib.auth.password_validation import validate_password
 from django_mongoengine.mongo_auth.models import User
-from core.models import *
+from lib.authentication.models import Token
+
+# from core.models import *
 
 
 __all__ = ['UserListSerializer', 'UserCreateSerializer']

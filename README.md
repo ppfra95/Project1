@@ -19,3 +19,9 @@ Modelo
         ---
     Token
       key
+
+
+
+PyMODM  #libreria con fields
+
+https://github.com/anexia-it/django-rest-passwordreset

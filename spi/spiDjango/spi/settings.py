@@ -47,10 +47,11 @@ INSTALLED_APPS = [
     'rest_framework_mongoengine',
 
     'django_rest_passwordreset',
+    'lib',
 
     'corsheaders',
     'django_mongoengine',
-    
+
     'core',
     'user',
 ]
@@ -192,7 +193,7 @@ REST_FRAMEWORK = {
         # 'rest_framework.permissions.IsAdminUser',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'lib.authentication.CustomTokenAuthentication',
+        'lib.authentication.authentication.CustomTokenAuthentication',
         'rest_framework.authentication.TokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
