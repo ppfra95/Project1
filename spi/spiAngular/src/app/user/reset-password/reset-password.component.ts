@@ -19,7 +19,8 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   save() {
-    this.user.token=String(this.route.snapshot.paramMap.get('token'))
+    this.user.token=String(new URLSearchParams(window.location.search).get('token'))
+
     this.userService.resetPassword(this.user)
       .subscribe(
         data => {

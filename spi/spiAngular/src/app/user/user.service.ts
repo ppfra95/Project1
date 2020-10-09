@@ -32,7 +32,7 @@ export class UserService {
   }
 
   resetPassword(user: Object): Observable<any> {
-   return this.http.delete(`${this.baseUrl}password_reset/confirm/`,user);
+   return this.http.post(`${this.baseUrl}password_reset/confirm/`,user);
   }
 
 }

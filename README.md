@@ -25,3 +25,4 @@ Modelo
 PyMODM  #libreria con fields
 
 https://github.com/anexia-it/django-rest-passwordreset
+https://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
