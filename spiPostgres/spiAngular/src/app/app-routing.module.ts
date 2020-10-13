@@ -11,7 +11,7 @@ const routes: Routes = [
   { path: 'user', children: [
     { path: 'login', component: LoginUserComponent },
     { path: 'register', component: RegisterUserComponent },
-    { path: 'profile/:id', component: UserProfileComponent },
+    { path: 'profile', component: UserProfileComponent },
     { path: 'password_reset', component: UserRecoveryPasswordComponent },
     { path: 'password_reset/confirm', component: ResetPasswordComponent},
   ]},

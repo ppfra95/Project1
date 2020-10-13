@@ -15,11 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from django_mongoengine import mongo_admin
 
 urlpatterns = [
-    # path('admin/', admin.site.urls),
-    path('admin/', mongo_admin.site.urls),
+    path('admin/', admin.site.urls),
     path('api/', include('user.urls')),
-    path('api/password_reset/', include('authentication.urls', namespace='password_reset')),
+    path('api/password_reset/', include('django_rest_passwordreset.urls', namespace='password_reset')),
+    # path('api/password_reset/', include('authentication.urls', namespace='password_reset')),
 ]

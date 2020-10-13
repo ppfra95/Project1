@@ -33,8 +33,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'django_mongoengine.mongo_admin',
-    'django_mongoengine.mongo_auth',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -44,6 +42,7 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'rest_framework.authtoken',
+    'django_rest_passwordreset',
 
     'corsheaders',
 
@@ -175,7 +174,6 @@ REST_FRAMEWORK = {
         # 'rest_framework.permissions.IsAdminUser',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'authentication.tokens.CustomTokenAuthentication',
         'rest_framework.authentication.TokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
@@ -193,4 +191,4 @@ EMAIL_HOST_PASSWORD="Joselo123"
 
 SERVER_EMAIL='ppfra95@gmail.com'
 
-HTTP_IP_ADDRESS_HEADER = "http://127.0.0.1:4200/user"
+HTTP_IP_ADDRESS_HEADER = "http://127.0.0.1:4200/user/password_reset/confirm"

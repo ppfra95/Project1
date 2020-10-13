@@ -21,7 +21,7 @@ export class LoginUserComponent implements OnInit {
       .subscribe(
         (data: any) => {
           localStorage.setItem("key", "Token "+data.token);
-          this.router.navigate(['user/profile/', data.id], );
+          this.router.navigate(['user/profile/'], );
         },
         error => console.log(error));
     this.user = new User();

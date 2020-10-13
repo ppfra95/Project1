@@ -19,12 +19,12 @@ export class UserService {
     return this.http.post(`${this.baseUrl}login/`, user);
   }
 
-  getUser(id:string): Observable<any> {
-    return this.http.get(`${this.baseUrl}user/${id}/edit/`);
+  getUser(): Observable<any> {
+    return this.http.get(`${this.baseUrl}user/`);
   }
 
-  updateUser(id: string, value: any): Observable<Object> {
-   return this.http.put(`${this.baseUrl}user/${id}/edit/`, value);
+  updateUser(value: any): Observable<Object> {
+   return this.http.put(`${this.baseUrl}user/`, value);
   }
 
   getTokenRecoveyPassword(user: Object): Observable<any> {

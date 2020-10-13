@@ -21,7 +21,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   reloadData() {
-    this.userService.getUser(String(this.route.snapshot.paramMap.get('id')))
+    this.userService.getUser()
     .subscribe(
         (data: any) => {
           console.log(data);
@@ -31,7 +31,9 @@ export class UserProfileComponent implements OnInit {
   }
 
   save() {
-    this.userService.updateUser(String(this.route.snapshot.paramMap.get('id')), this.user)
+    console.log(this.user);
+
+    this.userService.updateUser(this.user)
       .subscribe(
         data => {
           console.log(data);

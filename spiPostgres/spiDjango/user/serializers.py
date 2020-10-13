@@ -1,58 +1,58 @@
+from django.contrib.auth import get_user_model, authenticate
+from django.utils.translation import ugettext_lazy as _
+
 from rest_framework import serializers
-from rest_framework_mongoengine import serializers as me_serializers
-from django.contrib.auth.password_validation import validate_password
-from django_mongoengine.mongo_auth.models import User
-from authentication.models import Token
-
-# from core.models import *
 
 
-__all__ = ['UserListSerializer', 'UserCreateSerializer']
-
-
-class UserListSerializer(me_serializers.DocumentSerializer):
+class UserSerializer(serializers.ModelSerializer):
+    """Serializer for the users object"""
 
     class Meta:
-        model = User
-        fields = ('id', 'username', 'email', 'first_name', 'last_name')
+        model = get_user_model()
+        fields = ('email', 'password', 'username')
+        extra_kwargs = {'password': {'write_only': True, 'min_length': 5}}
+
+    def create(self, validated_data):
+        """Create a new user with encrypted password and return it"""
+        return get_user_model().objects.create_user(**validated_data)
 
 
-class UserCreateSerializer(me_serializers.DocumentSerializer):
 
+class UserEditSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = get_user_model()
+        fields = ('username','email','first_name', 'last_name')
+
+    def update(self, instance, validated_data):
+        """Update a user, setting the password correctly and return it"""
+        user = super().update(instance, validated_data)
+
+        return user
+
+
+
+class AuthTokenSerializer(serializers.Serializer):
+    """Serializer for the user authentication object"""
+    username = serializers.CharField()
     password = serializers.CharField(
         style={'input_type': 'password'},
         trim_whitespace=False
     )
 
-    password2 = serializers.CharField(
-        style={'input_type': 'password'},
-        trim_whitespace=False
-    )
-
-    class Meta:
-        model = User
-        fields = ('username','email', 'password','password2')
-
-    def create(self, validated_data):
-        """Create a new user with encrypted password and return it"""
-        data = self.data
-        password = data['password']
-
-        try:
-            del(data['password2'])
-        except Exception:
-            pass
-
-        return  User(**data).set_password(password).save()
-
     def validate(self, attrs):
+        """Validate and authenticate the user"""
+        username = attrs.get('username')
         password = attrs.get('password')
-        password2 = attrs.get('password2')
 
-        if password != password2:
-            raise serializers.ValidationError(
-                'Las constraseñas no coinciden', code='password_mismatch'
-            )
+        user = authenticate(
+            request=self.context.get('request'),
+            username=username,
+            password=password
+        )
+        if not user:
+            msg = _('Unable to authenticate with provided credentials')
+            raise serializers.ValidationError(msg, code='authorization')
 
-        validate_password(password)
+        attrs['user'] = user
         return attrs
