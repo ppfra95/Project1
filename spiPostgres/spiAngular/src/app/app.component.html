@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>SPI</title>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <header>
+        <nav class="navbar navbar-expand-md navbar-light bg-light">
+          <a class="navbar-brand mb-0 h1" href="">SPI</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-1" aria-controls="navbar1" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbar-1">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="user/login">Log in</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="user/register">Sing up</a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+
+        <div class="">
+          <h1>imagen aqui</h1>
+        </div>
+
+        <div>
+          <nav class="navbar navbar-expand-md navbar-light bg-light">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar2" aria-controls="navbar2" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbar2">
+              <ul class="navbar-nav m-auto">
+                <li class="nav-item {% if request.path == '/' %}active{% else %}disabled{% endif %}">
+                  <a class="nav-link mx-lg-4 mx-xl-5 mx-0" href="{% url 'home' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link mx-lg-4 mx-xl-5 mx-0" href="#">Cursos Presenciales</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link mx-lg-4 mx-xl-5 mx-0" href="#">Cursos Online</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link mx-lg-4 mx-xl-5 mx-0" href="#">Maquinados</a>
+                </li>
+              </ul>
+            </div>
+            <form class="form-inline my-lg-0">
+              <input class="form-control-sm mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success btn-sm my-2 my-sm-0" type="submit">Search</button>
+            </form>
+          </nav>
+        </div>
+      </header>
+
+      <!-- Contenido Cambiante-->
+      <router-outlet></router-outlet>
+
+    </div>
+  </body>
+</html>
