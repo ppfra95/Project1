@@ -9,12 +9,23 @@ import { AutoLogoutService } from './auto-logout.service';
 export class AppComponent implements OnInit {
   title = 'spiAngular';
   login = false;
-  token = String;
 
   constructor(private autoLogoutService: AutoLogoutService){}
 
   ngOnInit(): void {
-    console.log("se actualizo");
+    const token: string = localStorage.getItem('key');
+
+    if (token){
+      this.login = true;
+    }
+    else{
+      this.login = false;
+    }
+
+  }
+
+  singOut(): void {
+  localStorage.clear()
   }
 
 }

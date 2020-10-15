@@ -12,20 +12,29 @@ import { UserService } from '../user.service';
 })
 export class UserProfileComponent implements OnInit {
   user: User = new User();
+  login = false;
 
-  constructor(private userService: UserService, private route: ActivatedRoute,
-    private router: Router) { }
+  constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
-    this.reloadData();
+    const token: string = localStorage.getItem('key');
+    if (token) {
+      this.user = JSON.parse(localStorage.getItem('user'));
+      if (!this.user) {
+        this.reloadData();
+      }
+    }else{
+      this.router.navigate(['user/login/'], );
+    }
   }
 
   reloadData() {
     this.userService.getUser()
     .subscribe(
         (data: any) => {
-          console.log(data);
           this.user = data;
+          localStorage.setItem("user", JSON.stringify(this.user))
+          window.location.reload(false);
         },
         error => console.log(error));
   }

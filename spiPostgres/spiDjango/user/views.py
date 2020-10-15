@@ -7,6 +7,7 @@ from user.serializers import UserSerializer, AuthTokenSerializer, UserEditSerial
 
 class CreateUserView(generics.CreateAPIView):
     """Create a new user in the system"""
+    permission_classes = ()
     serializer_class = UserSerializer
 
 
@@ -19,8 +20,6 @@ class CreateTokenView(ObtainAuthToken):
 class ManageUserView(generics.RetrieveUpdateAPIView):
     """Manage the authenticated user"""
     serializer_class = UserEditSerializer
-    authentication_classes = (authentication.TokenAuthentication,)
-    permission_classes = (permissions.IsAuthenticated,)
 
     def get_object(self):
         return self.request.user

@@ -1,0 +1,11 @@
+#alertValidations ul{
+  font-size: .85em;
+}
+
+#alertValidations p{
+  padding-top: 10px;
+}
+
+#alertValidations li {
+  margin-left: -5px;
+}
